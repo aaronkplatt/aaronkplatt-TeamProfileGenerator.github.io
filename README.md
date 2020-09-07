@@ -173,3 +173,7 @@ You are required to submit the following:
 
 - - -
 © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+
+
+## MY STORY
+Im going prompt the user ask questions to the user and byt their answers im going to user if statements to create their HTML
