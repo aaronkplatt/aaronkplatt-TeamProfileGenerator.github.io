@@ -1,6 +1,7 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const Employee = require('./lib/Employee');
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -19,11 +20,19 @@ inquirer
             type: "input",
             name: "name",
             message: "What is Their Name?"
-        }
+        },
+        {
+            type: "list",
+            name: "role",
+            message: "What is their role? (Use Arrow Keys)",
+            choices: ["Manager", "Intern", "Engineer", "Employee"]
+        },
     ])
     .then(function(answers) {
         //variables set and ready to go
         const name = answers.name;
+        console.log(name);
+        const role = answers.role;
     });
 // and to create objects for each team member (using the correct classes as blueprints!)
 
