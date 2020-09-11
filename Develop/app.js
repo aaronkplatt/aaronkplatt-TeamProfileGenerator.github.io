@@ -16,24 +16,83 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 inquirer
     .prompt([
-        {
-            type: "input",
-            name: "name",
-            message: "What is Their Name?"
-        },
+        //1st promt
         {
             type: "list",
             name: "role",
-            message: "What is their role? (Use Arrow Keys)",
-            choices: ["Manager", "Intern", "Engineer", "Employee"]
+            message: "What is this team-members role?",
+            choices: ["Manager", "Intern", "Engineer", ]
         },
     ])
     .then(function(answers) {
         //variables set and ready to go
         const name = answers.name;
-        console.log(name);
         const role = answers.role;
+
+        if (role === "Intern") {
+            console.log("Sorry! Manger must be chosen first");
+            return;
+        }
+        //if yes
+        if (role === "Manager") {
+            console.log("Working")
+            inquirer
+                .prompt([
+                    {
+                        type: "input",
+                        name: "name",
+                        message: "What is the Manager's Name?"
+                    },
+                    {
+                        type: "input",
+                        name: "email",
+                        message: "What is the Manager's email?"
+                    },
+                    {
+                        type: "input",
+                        name: "id",
+                        message: "What is the Manager's ID?"
+                    },
+                    {
+                        type: "input",
+                        name: "officeNumber",
+                        message: "What is the Manager's Office Number?"
+                    },
+                    {
+                        type: "input",
+                        name: "team-members",
+                        message: "How many Team-Members? (Must be an Integer)"
+                    },
+                ])
+        }
+        
     });
+
+        // {
+        //     type: "input",
+        //     name: "nameManager",
+        //     message: "What is the Manager's Name?"
+        // },
+        // {
+        //     type: "input",
+        //     name: "idManager",
+        //     message: "What is the Manager's ID?"
+        // },
+        // {
+        //     type: "input",
+        //     name: "officeNumberManager",
+        //     message: "What is the Manager's office number?"
+        // },
+        // {
+        //     type: "input",
+        //     name: "teamAmount",
+        //     message: "How many team-member work for the Manager?"
+        // },
+
+        //Ask manager how many team members
+
+        //ask individual team
+        
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 
