@@ -12,8 +12,13 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
 // Write code to use inquirer to gather information about the development team members,
+let employees = [/*this is where all the employees are going to end up*/]
+
+
+//FUNCTION TO FIND OUT THE TYPE OF EMPLOYEE, put the line below (18) to intiate the process.
+employeeType();
+function employeeType() {
 inquirer
     .prompt([
         //1st promt
@@ -25,74 +30,134 @@ inquirer
         },
     ])
     .then(function(answers) {
-        //variables set and ready to go
-        const name = answers.name;
         const role = answers.role;
-
         if (role === "Intern") {
-            console.log("Sorry! Manger must be chosen first");
-            return;
+            internQuestions();
         }
-        //if yes
-        if (role === "Manager") {
-            console.log("Working")
-            inquirer
-                .prompt([
-                    {
-                        type: "input",
-                        name: "name",
-                        message: "What is the Manager's Name?"
-                    },
-                    {
-                        type: "input",
-                        name: "email",
-                        message: "What is the Manager's email?"
-                    },
-                    {
-                        type: "input",
-                        name: "id",
-                        message: "What is the Manager's ID?"
-                    },
-                    {
-                        type: "input",
-                        name: "officeNumber",
-                        message: "What is the Manager's Office Number?"
-                    },
-                    {
-                        type: "input",
-                        name: "team-members",
-                        message: "How many Team-Members? (Must be an Integer)"
-                    },
-                ])
+        else if (role === "Engineer") {
+            engineerQuestions();
         }
-        
+        else if (role === "Manager") {
+            managerQuestions();
+        }  
     });
+}    
 
-        // {
-        //     type: "input",
-        //     name: "nameManager",
-        //     message: "What is the Manager's Name?"
-        // },
-        // {
-        //     type: "input",
-        //     name: "idManager",
-        //     message: "What is the Manager's ID?"
-        // },
-        // {
-        //     type: "input",
-        //     name: "officeNumberManager",
-        //     message: "What is the Manager's office number?"
-        // },
-        // {
-        //     type: "input",
-        //     name: "teamAmount",
-        //     message: "How many team-member work for the Manager?"
-        // },
+// IF CHOSEN MANAGER FUNCTION
+function managerQuestions() {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the Manager's Name?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the Manager's email?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the Manager's ID?"
+        },
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "What is the Manager's Office Number?"
+        },
+    ]) .then(function (answers) {
+        const manager = new Manager(answers.name, answers.email, answers.id, answers.officeNumber);
+        employees.push(manager)
+        buildEmployees();
+    })
+}
 
-        //Ask manager how many team members
+// IF CHOSEN ENGINEER FUNCTION
+function engineerQuestions() {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the Engineer's Name?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the Engineer's email?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the Engineer's ID?"
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "What is the Engineer's Github username?"
+        },
+    ]) .then(function (answers) {
+        const engineer = new Engineer(answers.name, answers.email, answers.id, answers.github);
+        employees.push(engineer)
+        buildEmployees();
+    })
+}
 
-        //ask individual team
-        
+// IF CHOSEN INTERN FUNCTION
+function internQuestions() {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the Intern's Name?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the Intern's email?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the Intern's ID?"
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "What is the Intern's School Name?"
+        },
+    ]) .then(function (answers) {
+        const intern = new Intern(answers.name, answers.email, answers.id, answers.school);
+        employees.push(intern)
+        buildEmployees();
+    })
+}
+
+//THIS FUNCTION IS USED TO EITHER BUILD THE TEAM IN HTML OR ADD ANOTHER EMPLOYEE WHICH SHOOTS YOU UP TO THE TOP
+function buildEmployees() {
+    inquirer
+    .prompt([
+        {
+            type: "list",
+            name: "build",
+            message: "Would you like to build your team or add another Employee? (Use arrow keys)",
+            choices: ["Build Team", "Add Employee"]
+        }
+    ]) .then(function(answers) {
+        if(answers.build === "Build Team") {
+            if (!fs.existsSync(OUTPUT_DIR)) {
+                fs.mkdirSync(OUTPUT_DIR);
+            }
+            fs.writeFileSync(outputPath, render (employees))
+        } else {
+            employeeType();
+        }
+
+    })
+}
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 
