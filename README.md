@@ -1,7 +1,7 @@
 # TEAM PROFILE GENERATOR
 
 ## Project Despription
- This project asks the user to enter information about each Employee and creates an HTML file for the team. 
+ This project asks the user to enter information about each Employee and creates an HTML file in the folder "output" for the team putting each employee on its own card. 
 
 ## Table of Contents
 * [Installation](#installation)
@@ -19,13 +19,14 @@
 ## Usage
 LIVE CODED: https://drive.google.com/file/d/1PDKzvC07KJxXtkX728syMr-CCYOq4Ht0/view
 - To create a team-profile Html page from User Input. 
-- To start go to the command line and type "node index.js"
+- To start go to the command line and type "node app.js"
 
 ## Guidelines
 - With help from my fellow classmates
 
 ## test
 - To test to make sure you have everything you need put "npm run test" in your command line.
+- If worked correctly the user should get 17 passes and 0 fails.
 
 ## license
 UCSD BOOTCAMPSPOT
