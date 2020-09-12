@@ -6,22 +6,19 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-// Write code to use inquirer to gather information about the development team members,
 let employees = [/*this is where all the employees are going to end up*/]
-
 
 //FUNCTION TO FIND OUT THE TYPE OF EMPLOYEE, put the line below (18) to intiate the process.
 employeeType();
 function employeeType() {
-inquirer
+    inquirer
     .prompt([
-        //1st promt
+        //1st prompt to initiate the first employee and new employee's
         {
             type: "list",
             name: "role",
@@ -54,13 +51,13 @@ function managerQuestions() {
         },
         {
             type: "input",
-            name: "email",
-            message: "What is the Manager's email?"
+            name: "id",
+            message: "What is the Manager's ID?"
         },
         {
             type: "input",
-            name: "id",
-            message: "What is the Manager's ID?"
+            name: "email",
+            message: "What is the Manager's email?"
         },
         {
             type: "input",
@@ -68,7 +65,7 @@ function managerQuestions() {
             message: "What is the Manager's Office Number?"
         },
     ]) .then(function (answers) {
-        const manager = new Manager(answers.name, answers.email, answers.id, answers.officeNumber);
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
         employees.push(manager)
         buildEmployees();
     })
@@ -85,13 +82,13 @@ function engineerQuestions() {
         },
         {
             type: "input",
-            name: "email",
-            message: "What is the Engineer's email?"
+            name: "id",
+            message: "What is the Engineer's ID?"
         },
         {
             type: "input",
-            name: "id",
-            message: "What is the Engineer's ID?"
+            name: "email",
+            message: "What is the Engineer's email?"
         },
         {
             type: "input",
@@ -99,7 +96,7 @@ function engineerQuestions() {
             message: "What is the Engineer's Github username?"
         },
     ]) .then(function (answers) {
-        const engineer = new Engineer(answers.name, answers.email, answers.id, answers.github);
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
         employees.push(engineer)
         buildEmployees();
     })
@@ -116,13 +113,13 @@ function internQuestions() {
         },
         {
             type: "input",
-            name: "email",
-            message: "What is the Intern's email?"
+            name: "id",
+            message: "What is the Intern's ID?"
         },
         {
             type: "input",
-            name: "id",
-            message: "What is the Intern's ID?"
+            name: "email",
+            message: "What is the Intern's email?"
         },
         {
             type: "input",
@@ -130,7 +127,7 @@ function internQuestions() {
             message: "What is the Intern's School Name?"
         },
     ]) .then(function (answers) {
-        const intern = new Intern(answers.name, answers.email, answers.id, answers.school);
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
         employees.push(intern)
         buildEmployees();
     })
@@ -143,7 +140,7 @@ function buildEmployees() {
         {
             type: "list",
             name: "build",
-            message: "Would you like to build your team or add another Employee? (Use arrow keys)",
+            message: "Would you like to build your team or add another Employee?",
             choices: ["Build Team", "Add Employee"]
         }
     ]) .then(function(answers) {
@@ -155,11 +152,11 @@ function buildEmployees() {
         } else {
             employeeType();
         }
-
+        
     })
 }
+// Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
